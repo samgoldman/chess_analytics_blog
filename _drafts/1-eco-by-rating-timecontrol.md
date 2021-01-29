@@ -1,7 +1,7 @@
 ---
 title: "Analysis of ECO Category Usage by Player Rating and Time Control"
 layout: d3_post
-date: 2021-01-24 00:00
+data: 2021-01-31 00:00
 hidden: false
 published: true
 headerImage: false
@@ -14,7 +14,7 @@ category: blog
 author: samgoldman
 description: Test
 ---
-<script src="{{ base.url | prepend: site.url }}/assets/javascript/posts/2021-01-31-eco-by-rating-timecontrol.js"></script>
+<script src="{{ base.url | prepend: site.url }}/assets/javascript/posts/1-eco-by-rating-timecontrol.js"></script>
 
 
 I would like to start off my mentioning that I'm pretty new to studying chess. I've played casually with friends for years, but have never really studied strategies. I discovered Lichess back in September/October after a recommendation from a coworker and really started playing in November.
@@ -66,7 +66,7 @@ Now, onto the charts!
 ## All Time Controls
 <svg id="chart-all"></svg>
 
-This chart shows ECO main category usage by game rating
+This chart shows two things: the lines show the percent of games in each rating bin that use an opening in a given ECO category. The bar chart shows the number of games in each of those rating bins. Additionally, the black line shows the overall average 
 
 ## UltraBullet
 <svg id="chart-ultrabullet"></svg>

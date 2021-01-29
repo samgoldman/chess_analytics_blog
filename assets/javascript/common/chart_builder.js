@@ -13,7 +13,7 @@ async function load_data(path, name) {
 
 function get_line_for(x, y, statname) {
     return d3.line()
-    .x(d => x(d.Rating) + x.bandwidth() / 2)
+    .x(d => x(d.Rating))
     .y(d => y(d[statname]))
 }
 
@@ -53,23 +53,20 @@ const LINE_COLORS = ["#1f77b4","#ff7f0e","#2ca02c","#d62728","#9467bd","#8c564b"
  * SVG: the SVG to draw on (will be cleared and resized)
  * data: the dataset to draw using (requires gameCount.sum)
  * stats: the stats (other than gameCount.sum) in data to include (max 10)
- * is_main_data_percentages: if true, will draw main vertical axis with percents
- * heading: main vertical axis label
- * legend_keys: human readable versions of the stats
+ * options: ...
  */
-function draw_ratings_chart(svg, 
-    dataset_name, 
-    stats, 
-    is_main_data_percentages, 
-    heading, 
-    legend_keys, 
-    include_game_count = false, 
-    filter_key = undefined, 
-    filter_value = undefined,
-    left_y_max=undefined,
-    min_rating=600, 
-    max_rating=2999) {
-    
+function draw_ratings_chart(svg, dataset_name, stats, options) {
+    const use_percentages    = options.use_percentages === undefined || options.use_percentages;
+    const left_y_axis        = options.left_y_axis === undefined ? "<Left Y Axis>" : options.left_y_axis;
+    const legend_keys        = options.legend_keys === undefined ? stats : options.legend_keys;
+    const include_game_count = options.include_game_count !== undefined || options.include_game_count;
+    const filter_key         = options.filter_key;
+    const filter_value       = options.filter_value;
+    const left_y_max         = options.left_y_max;
+    const min_rating         = options.min_rating === undefined ?  600 : options.min_rating;
+    const max_rating         = options.max_rating === undefined ? 2999 : options.max_rating;
+
+
     svg.selectAll("*").remove();
 
     const height = 320;
@@ -83,13 +80,14 @@ function draw_ratings_chart(svg,
     // Setup SVG size
     svg = svg.attr("viewBox", [0, 0, width, height]);
 
+    const x_domain = d3.map(filtered_data, d => d.Rating);
     const x = d3.scaleBand()
-        .domain(d3.map(filtered_data, d => d.Rating))
+        .domain(x_domain)
         .rangeRound([margin.left, width - margin.right])
         .padding(0.1);
     const x_linear = d3.scaleLinear()
-        .domain(d3.extent(d3.map(filtered_data, d => d.Rating)))
-        .range([margin.left, width - margin.right])
+        .domain([d3.min(x_domain), d3.max(x_domain)])
+        .range([x(d3.min(x_domain)), x(d3.max(x_domain))])
 
     let game_count_mean = null;
     if (include_game_count) {
@@ -155,7 +153,7 @@ function draw_ratings_chart(svg,
         })]).rangeRound([height - margin.bottom, margin.top])
 
     const x_axis = g => g
-        .attr("transform", `translate(0,${height - margin.bottom})`)
+        .attr("transform", `translate(${x.bandwidth()/2*-1},${height - margin.bottom})`)
         .call(d3.axisBottom(x)
             .tickValues(d3.ticks(...d3.extent(x.domain()), width / 40).filter(v => x(v) !== undefined))
             .tickSizeOuter(0))
@@ -163,14 +161,14 @@ function draw_ratings_chart(svg,
     const y_stats_axis = g => g
         .attr("transform", `translate(${margin.left},0)`)
         .style("color", "steelblue")
-        .call(d3.axisLeft(y_stats).ticks(null, is_main_data_percentages ? "%" : null))
+        .call(d3.axisLeft(y_stats).ticks(null, use_percentages ? "%" : null))
         .call(g => g.select(".domain").remove())
         .call(g => g.append("text")
             .attr("x", -margin.left)
             .attr("y", margin.top - 10)
             .attr("fill", "steelblue")
             .attr("text-anchor", "start")
-            .text(heading));
+            .text(left_y_axis));
 
     stats.forEach((stat, i) => {
         // "Outline" line in white
@@ -204,7 +202,7 @@ function draw_ratings_chart(svg,
         .text(d => {
             let text = `${d.Rating}\n`
             stats.forEach((stat, i) => {
-                text += `${legend_keys[i]}: ${Math.round(d[stat] * 100)}%\n`
+                text += use_percentages ? `${legend_keys[i]}: ${Math.round(d[stat] * 100)}%\n` : `${legend_keys[i]}: ${numberWithCommas(d[stat])}%\n`
             });
             if (include_game_count) { 
                 text += `${numberWithCommas(d["gameCount.sum"]*GAME_COUNT_SCALE_ADJUSTMENT, 0)} games\n`
