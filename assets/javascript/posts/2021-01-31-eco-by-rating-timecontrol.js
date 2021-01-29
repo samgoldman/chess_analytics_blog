@@ -1,4 +1,4 @@
-function init_post(path) {
+function init_post(url) {
     const all = d3.select('#chart-all');
     const ultrabullet = d3.select('#chart-ultrabullet');
     const bullet = d3.select('#chart-bullet');
