@@ -1,6 +1,6 @@
 # main text of home
 name: Chess Analytics
-bio: 
+bio: Description here...
 
 # twitter summary info
 description: A blog about analyzing Lichess data
@@ -51,12 +51,6 @@ disqus:
 # vimeo: myvimeo
 # lanyrd: mylanyrd
 # email: myemail@gmail.com
-
-authors:
-  johndoe:
-    name: Sam Goldman
-    bio: 
-    external-image: false
 
 # do you want a larger site? change the option below
 # options: [normal, large] | default: normal
