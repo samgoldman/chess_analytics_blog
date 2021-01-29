@@ -1,6 +1,6 @@
 # main text of home
 name: Chess Analytics
-bio: Description here...
+bio: A blog about analyzing Lichess data
 
 # twitter summary info
 description: A blog about analyzing Lichess data
@@ -98,7 +98,7 @@ defaults:
     values:
       # setting all post to not hidden by default,
       # can be overridden in the front matter for a specific post
-      hidden: false
+      hidden: true
 
 plugins:
   - jekyll-seo-tag
