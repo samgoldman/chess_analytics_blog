@@ -1,9 +1,11 @@
 const global_data = {};
+const GAME_COUNT_SCALE_ADJUSTMENT = 1000000;
+
 async function load_data(path, name) {
     let raw_data = await d3.tsv(path, d3.autoType);
 
     let data = raw_data.map(d => {
-        d["gameCount.sum"] /= 1000000;
+        d["gameCount.sum"] /= GAME_COUNT_SCALE_ADJUSTMENT;
         return d;
     })
     global_data[name] = data;
@@ -89,8 +91,9 @@ function draw_ratings_chart(svg,
         .domain(d3.extent(d3.map(filtered_data, d => d.Rating)))
         .range([margin.left, width - margin.right])
 
+    let game_count_mean = null;
     if (include_game_count) {
-        const game_count_mean   = calc_mean(filtered_data, "Rating", "gameCount.sum");
+        game_count_mean   = calc_mean(filtered_data, "Rating", "gameCount.sum");
 
         const y_game_count = d3.scaleLinear()
             .domain([0, d3.max(filtered_data, d => d["gameCount.sum"])])
@@ -203,9 +206,11 @@ function draw_ratings_chart(svg,
             stats.forEach((stat, i) => {
                 text += `${legend_keys[i]}: ${Math.round(d[stat] * 100)}%\n`
             });
-            text += `${numberWithCommas(d["gameCount.sum"]*1000000, 0)} games\n`
-            const game_count_mean   = calc_mean(filtered_data, "Rating", "gameCount.sum");
-            text += `Average rating: ${game_count_mean}`;
+            if (include_game_count) { 
+                text += `${numberWithCommas(d["gameCount.sum"]*GAME_COUNT_SCALE_ADJUSTMENT, 0)} games\n`
+                text += `Average rating: ${game_count_mean}`;
+            }
+
             return text;
         });
 
