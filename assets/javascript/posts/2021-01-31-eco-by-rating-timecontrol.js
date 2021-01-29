@@ -11,11 +11,11 @@ function init_post(url) {
         await load_data(`${url}/assets/data/eco_category_by_rating.tsv`, 'ECO_BY_RATING');
         await load_data(`${url}/assets/data/eco_category_by_rating_and_timecontrol.tsv`, 'ECO_BY_RATING_TC');
         draw_ratings_chart(all, "ECO_BY_RATING", ["A", "B", "C", "D", "E"], true, "Percent of Games", ["A", "B", "C", "D", "E"], true);
-        draw_ratings_chart(ultrabullet, "ECO_BY_RATING_TC", ["A", "B", "C", "D", "E"], true, "Percent of Games", ["A", "B", "C", "D", "E"], true, filter_key="TimeControl", filter_value="UltraBullet");
-        draw_ratings_chart(bullet, "ECO_BY_RATING_TC", ["A", "B", "C", "D", "E"], true, "Percent of Games", ["A", "B", "C", "D", "E"], true, filter_key="TimeControl", filter_value="Bullet");
-        draw_ratings_chart(blitz, "ECO_BY_RATING_TC", ["A", "B", "C", "D", "E"], true, "Percent of Games", ["A", "B", "C", "D", "E"], true, filter_key="TimeControl", filter_value="Blitz");
-        draw_ratings_chart(rapid, "ECO_BY_RATING_TC", ["A", "B", "C", "D", "E"], true, "Percent of Games", ["A", "B", "C", "D", "E"], true, filter_key="TimeControl", filter_value="Rapid");
-        draw_ratings_chart(classical, "ECO_BY_RATING_TC", ["A", "B", "C", "D", "E"], true, "Percent of Games", ["A", "B", "C", "D", "E"], true, filter_key="TimeControl", filter_value="Classical");
-        draw_ratings_chart(correspondence, "ECO_BY_RATING_TC", ["A", "B", "C", "D", "E"], true, "Percent of Games", ["A", "B", "C", "D", "E"], true, filter_key="TimeControl", filter_value="Correspondence");
+        draw_ratings_chart(ultrabullet, "ECO_BY_RATING_TC", ["A", "B", "C", "D", "E"], true, "Percent of Games", ["A", "B", "C", "D", "E"], true, filter_key="TimeControl", filter_value="UltraBullet", left_y_max=1.0);
+        draw_ratings_chart(bullet, "ECO_BY_RATING_TC", ["A", "B", "C", "D", "E"], true, "Percent of Games", ["A", "B", "C", "D", "E"], true, filter_key="TimeControl", filter_value="Bullet", left_y_max=1.0);
+        draw_ratings_chart(blitz, "ECO_BY_RATING_TC", ["A", "B", "C", "D", "E"], true, "Percent of Games", ["A", "B", "C", "D", "E"], true, filter_key="TimeControl", filter_value="Blitz", left_y_max=1.0);
+        draw_ratings_chart(rapid, "ECO_BY_RATING_TC", ["A", "B", "C", "D", "E"], true, "Percent of Games", ["A", "B", "C", "D", "E"], true, filter_key="TimeControl", filter_value="Rapid", left_y_max=1.0);
+        draw_ratings_chart(classical, "ECO_BY_RATING_TC", ["A", "B", "C", "D", "E"], true, "Percent of Games", ["A", "B", "C", "D", "E"], true, filter_key="TimeControl", filter_value="Classical", left_y_max=1.0);
+        draw_ratings_chart(correspondence, "ECO_BY_RATING_TC", ["A", "B", "C", "D", "E"], true, "Percent of Games", ["A", "B", "C", "D", "E"], true, filter_key="TimeControl", filter_value="Correspondence", left_y_max=1.0);
     };
 }

@@ -20,7 +20,31 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-const LINE_COLORS = ["#1f77b4","#ff7f0e","#2ca02c","#d62728","#9467bd","#8c564b","#e377c2","#7f7f7f","#bcbd22","#17becf"]
+function calc_mean(dataset, x_key, count_key) {
+    let total_count = 0;
+    let weighted_sum  = 0;
+
+    dataset.forEach(d => {
+        total_count += d[count_key];
+        weighted_sum += d[count_key] * d[x_key];
+    });
+
+    return Math.round(weighted_sum / total_count);
+}
+
+function calc_stddev(dataset, mean, x_key, count_key) {
+    let sum = 0;
+    let total_count = 0;
+
+    dataset.forEach(d => {
+        total_count += d[count_key];
+        sum += Math.pow(d[x_key] - mean, 2) * d[count_key];
+    });
+
+    return Math.sqrt(sum/total_count);
+}
+
+const LINE_COLORS = ["#1f77b4","#ff7f0e","#2ca02c","#d62728","#9467bd","#8c564b","#e377c2","#7f7f7f","#bcbd22","#17becf"];
 
 // Up to 4 stats + game count (required)
 /**
@@ -39,7 +63,8 @@ function draw_ratings_chart(svg,
     legend_keys, 
     include_game_count = false, 
     filter_key = undefined, 
-    filter_value = undefined, 
+    filter_value = undefined,
+    left_y_max=undefined,
     min_rating=600, 
     max_rating=2999) {
     
@@ -60,8 +85,13 @@ function draw_ratings_chart(svg,
         .domain(d3.map(filtered_data, d => d.Rating))
         .rangeRound([margin.left, width - margin.right])
         .padding(0.1);
+    const x_linear = d3.scaleLinear()
+        .domain(d3.extent(d3.map(filtered_data, d => d.Rating)))
+        .range([margin.left, width - margin.right])
 
     if (include_game_count) {
+        const game_count_mean   = calc_mean(filtered_data, "Rating", "gameCount.sum");
+
         const y_game_count = d3.scaleLinear()
             .domain([0, d3.max(filtered_data, d => d["gameCount.sum"])])
             .rangeRound([height - margin.bottom, margin.top]);
@@ -76,6 +106,17 @@ function draw_ratings_chart(svg,
             .attr("width", x.bandwidth())
             .attr("y", d => y_game_count(d["gameCount.sum"]))
             .attr("height", d => y_game_count(0) - y_game_count(d["gameCount.sum"]));
+
+        svg.append("g")
+            .attr("stroke", "black")
+            .selectAll("line")
+            .data([game_count_mean])
+                .join("line")
+                .attr("x1", d => x_linear(d))
+                .attr("x2", d => x_linear(d))
+                .attr("stroke-width", 5)
+                .attr("y1", d => y_game_count(0))
+                .attr("y2", d => y_game_count(d3.max(filtered_data, d => d["gameCount.sum"])))
 
         let sum = filtered_data.reduce((a, c) => a + c["gameCount.sum"], 0);
 
@@ -102,10 +143,12 @@ function draw_ratings_chart(svg,
 
     const y_stats = d3.scaleLinear()
         .domain([0, d3.max(filtered_data, d => {
-            // Make axis fit all selected stats
-            points = []
-            stats.forEach(stat => points.push(d[stat]));
-            return d3.max(points);
+            if (left_y_max === undefined) {
+                // Make axis fit all selected stats
+                points = []
+                stats.forEach(stat => points.push(d[stat]));
+                return d3.max(points);
+            } else return left_y_max;
         })]).rangeRound([height - margin.bottom, margin.top])
 
     const x_axis = g => g
@@ -160,7 +203,9 @@ function draw_ratings_chart(svg,
             stats.forEach((stat, i) => {
                 text += `${legend_keys[i]}: ${Math.round(d[stat] * 100)}%\n`
             });
-            text += `${numberWithCommas(d["gameCount.sum"]*1000000, 0)} games`
+            text += `${numberWithCommas(d["gameCount.sum"]*1000000, 0)} games\n`
+            const game_count_mean   = calc_mean(filtered_data, "Rating", "gameCount.sum");
+            text += `Average rating: ${game_count_mean}`;
             return text;
         });
 

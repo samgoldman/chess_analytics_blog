@@ -83,8 +83,7 @@ This chart shows ECO main category usage by game rating
 
 While you can *sort* *of* see similar patterns in this dataset, it's pretty obvious that the relatively small sample size makes this data not so helpful. One interesting thing here though is is the distribution of the game counts - over a third of all correspondence games are in the 1400-1500 rating range, compared to only 10% in the overall dataset. Without much evidence, since Lichess doesn't specify provisional ratings in the PGN data, my hypothesis is that players tend to play correspondence games once or twice before moving on, and since provisional ratings start at 1500, most games for this time control will be in that ballpark.
 
-Overall, I'll probably exclude correspondence games from future time-control based analysis. It just doesn't seem to add much.
-
+Going forward I'll probably exclude correspondence games from time-control based analysis. It just doesn't seem to add much.
 
 ## Conclusion
 
