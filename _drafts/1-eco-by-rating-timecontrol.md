@@ -4,7 +4,8 @@ layout: d3_post
 data: 2021-01-31 00:00
 hidden: false
 published: true
-headerImage: false
+headerImage: true
+image: /assets/images/post_headers/1-eco-by-rating-timecontrol.png
 projects: false
 tag:
 - Chess
