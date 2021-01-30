@@ -17,13 +17,13 @@ description: Test
 <script src="{{ base.url | prepend: site.url }}/assets/javascript/posts/1-eco-by-rating-timecontrol.js"></script>
 
 
-I would like to start off my mentioning that I'm pretty new to studying chess. I've played casually with friends for years, but have never really studied strategies. I discovered Lichess back in September/October after a recommendation from a coworker and really started playing in November.
+I would like to start off by mentioning that I'm pretty new to studying chess. I've played casually with friends for years, but have never really studied strategies. I discovered Lichess back in September/October after a recommendation from a coworker and really started playing in November.
 
-I eventually stumbled across Lichess' [database](database.lichess.org/) and as someone who loves data, I immediately started figuring out what I would be able to do with. I'll save the technical details for another post eventually, but I tried a few different things before settling on transforming the provided PGN files into a binary format that I could process quicker. It took over four days to convert all eight years (2013-2020) of data, but now that I have I'm able to generate results in three to four hours (depending on what processing has to be done).
+I eventually stumbled across Lichess' [database](database.lichess.org/) and as someone who loves data, I immediately started figuring out what I would be able to do with it. I'll save the technical details for another post eventually, but I tried a few different things before settling on transforming the provided PGN files into a binary format that I could process quicker. It took over four days to convert all eight years (2013-2020) of data, but now that I have I'm able to generate results in three to four hours (depending on what processing has to be done).
 
-One of my initial goals with this project was to see if there was a noticable spike in players using the [Queen's Gambit Opening](https://en.wikipedia.org/wiki/Queen%27s_Gambit). While I intend to return to look at that eventually, I got side-tracked by curiousity over whether players at different levels used different openings. Brief research on Wikipedia and elsewhere indicated that they do, but I wanted to demonstrate that. 
+One of my initial goals with this project was to see if there was a noticeable spike in players using the [Queen's Gambit Opening](https://en.wikipedia.org/wiki/Queen%27s_Gambit). While I intend to return to look at that eventually, I got side-tracked by curiosity over whether players at different levels used different openings. Brief research on Wikipedia and elsewhere indicated that they do, but I wanted to demonstrate that. 
 
-Long story short, I posted the results for several openings on [Reddit](https://www.reddit.com/r/chess/comments/kzb9f5/selected_opening_usage_in_17_billion_lichess/) a couple of weeks ago and got some good feedback, including [creating a blog post](https://www.reddit.com/r/chess/comments/kzb9f5/selected_opening_usage_in_17_billion_lichess/gjnf7vu). So here I am! I decided to take a step back and first look at broader patterns with main [Encyclopaedia of Chess Openings (ECO)](https://en.wikipedia.org/wiki/Encyclopaedia_of_Chess_Openings) usage by game rating.
+Long story short, I posted the results for several openings on [Reddit](https://www.reddit.com/r/chess/comments/kzb9f5/selected_opening_usage_in_17_billion_lichess/) a couple of weeks ago and got some good feedback, including [creating a blog post](https://www.reddit.com/r/chess/comments/kzb9f5/selected_opening_usage_in_17_billion_lichess/gjnf7vu). So here I am! I decided to take a step back and first look at broader patterns with [Encyclopaedia of Chess Openings (ECO)](https://en.wikipedia.org/wiki/Encyclopaedia_of_Chess_Openings) usage by game rating.
 
 ## Terminology 
 
@@ -61,7 +61,7 @@ Rated games are generally timed with two components, the initial time that each 
 5. Classical: games where the estimated duration is >=1500 seconds
 6. Correspondence: these games are not played under typical time constraints. Instead players are given a set number of *days* to play, not seconds or minutes
 
-**Note**: I did not take into account beserking which is when, in a tournament, a player may opt to start with half the time on their clock in exchange for a point bonus if they win.
+**Note**: I did not take into account berserking which is when, in a tournament, a player may opt to start with half the time on their clock in exchange for a point bonus if they win.
 
 Now, onto the charts!
 
