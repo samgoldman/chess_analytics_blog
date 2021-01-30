@@ -61,23 +61,52 @@ Rated games are generally timed with two components, the initial time that each 
 5. Classical: games where the estimated duration is >=1500 seconds
 6. Correspondence: these games are not played under typical time constraints. Instead players are given a set number of *days* to play, not seconds or minutes
 
+**Note**: I did not take into account beserking which is when, in a tournament, a player may opt to start with half the time on their clock in exchange for a point bonus if they win.
+
 Now, onto the charts!
 
 ## All Time Controls
 <svg id="chart-all"></svg>
 
-This chart shows two things: the lines show the percent of games in each rating bin that use an opening in a given ECO category. The bar chart shows the number of games in each of those rating bins. Additionally, the black line shows the overall average 
+This chart shows two things: the lines show the percent of games in each rating bin that use an opening in a given ECO category. The bar chart shows the number of games in each of those rating bins. Additionally, the black line shows the overall average game rating. So across all time controls, the average game rating is 1610. Each rating bin corresponds to a rating range of 50 points, calculated like so: floor(game_rating/50)*50, so a game rating of 1699 would fall in the 1650 bin.
+
+Some points of interest:
+* Categories A and C start with almost equal shares of games at the low end of the spectrum
+* Category C openings gain popularity with lower ranked players before steadily dropping off starting around the 1200 rating range
+* Meanwhile, category A openings fall initially before starting a steady rise around 1200 and peaking with around 50% of the game share
+* Categories B and D are relatively steady, although B does gain some share progressing through the lower ratings
+* Category E openings are the least common overall, only gaining a noticeable number of games around 1200 and peaking with about 6% of games in the 2300-2400 rating range
 
 ## UltraBullet
 <svg id="chart-ultrabullet"></svg>
+
+UltraBullet games represent about 24 million (1.3%) of all games in the database, and there's not really much of an interesting difference between the overall usage of category B, D, or E openings. However the difference for openings in the A and C categories is very interesting. Unlike in the overall dataset, C openings never overtake A openings (exect for at the very end, but with a sample size of <2000 games, I'm not counting that). 
+
+My leading theory is that in the overall dataset, the progression of A and C show the learning curve of new players. My assumption is that UltraBullet players (save for the few that just want to give it a shot) are not new to chess. I'm at best okay when playing rapid, but when I tried playing the computer at mere Bullet times, I barely stood a chance. So even players who are new to UltraBullet have gone through the learning phase seen in the full dataset, resulting in category A openings dominating Ultrabullet.
+
 ## Bullet
 <svg id="chart-bullet"></svg>
+
+Bullet games (33% of the total) shows a progression that more closely resembles the overall chart than UltraBullet's does, but is noticeably accelerated. The second switch between A and C occurs earlier. This is likely the result of a similar playerbase to UltraBullet's, but not as extreme (i.e, more players newer to chess overall mixed in) because the timing is more manageable.
+
 ## Blitz
 <svg id="chart-blitz"></svg>
+
+With just over 48% of the total games, it makes sense that it's graph pretty closely resembles that of the overall dataset's. However, there are still two interesting points:
+
+* Category B openings spend a little more time at the top (and by a larger margin), and end more or less even with A. My guess - more time equals more time to experiment with lesser known openings (and recover if you mess up)
+* Similarly, Category E grows to take a larger share, peaking with 10%
+
 ## Rapid
 <svg id="chart-rapid"></svg>
+
+Rapid games represent only 15% of the overall games and show similar patterns to Blitz, but a bit more exaggerated. Most notably, category B openings keep the lead (at least until the 2600+ choas of small sample sizes). Other than that, I don't really have much to say about this chart.
+
 ## Classical
 <svg id="chart-classical"></svg>
+
+Again, classical games (2.3%) don't differ too much from the overall dataset, with the main exception being the use of category B openings at higher levels. Also of note: classical has the lowest average game rating of all time controls. I'm not entirely sure why that may be, but it may be a similar case to the correspondence games, where due to the length of the game, players will only play once or twice and not develop their rating.
+
 ## Correspondence
 <svg id="chart-correspondence"></svg>
 
@@ -87,6 +116,16 @@ Going forward I'll probably exclude correspondence games from time-control based
 
 ## Conclusion
 
+While the idea that UltraBullet and Bullet games attract more experienced players over beginners isn't exactly a novel concept, I find it interesting to see the standard learning progression of players (through what openings they use) and then see that the same progression doesn't apply in high speed games. It makes sense, but I find it cool to visualize.
+
+## Data
+
+The data for these charts can be found here:
+
+* [Combined Time Controls]({{ base.url | prepend: site.url }}/assets/data/eco_category_by_rating.tsv)
+* [Split Time Controls]({{ base.url | prepend: site.url }}/assets/data/eco_category_by_rating_and_timecontrol.tsv)
+
+These were created using the tool in this repository: [Chess Analytics](https://github.com/samgoldman/chess_analytics), which uses data from the Lichess database.
 
 <script>
     init_post('{{ base.url | prepend: site.url }}');
