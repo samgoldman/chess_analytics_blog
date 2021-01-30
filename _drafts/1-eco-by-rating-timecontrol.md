@@ -39,7 +39,7 @@ The ECO system is a method for defining openings in chess. Openings are broken d
 * D: Close and Semi-Closed Games
 * E: Indian Defences
 
-Openings are then further dividing into 100 subcategories for each main category, 00-99, but for this analysis I stuck to the main categories.
+Openings are then further divided into 100 subcategories for each main category, 00-99, but for this analysis I stuck to the main categories.
 
 ### Game Rating
 
@@ -48,7 +48,7 @@ Game rating is pretty straightforward: average the two player's ratings and you 
 1. Above that rating, sample sizes get small. They get small before that too, but 3000 seemed like a natural cutoff initially.
 2. I sampled several games with ratings above 3000 and every one was played by players suspected of or suspended for rating manipulation.
 
-In hindsight, I should have place the cutoff at 2800 since that Lichess' own cutoff on their [rating distribution charts](https://lichess.org/stat/rating/distribution/rapid). I'll do that in the future, but for now I'll leave it.
+In hindsight, I should have placed the cutoff at 2800 since that's Lichess' own cutoff on their [rating distribution charts](https://lichess.org/stat/rating/distribution/rapid). I'll do that in the future, but for now I'll leave it.
 
 ### Time Control
 
@@ -80,7 +80,7 @@ Some points of interest:
 ## UltraBullet
 <svg id="chart-ultrabullet"></svg>
 
-UltraBullet games represent about 24 million (1.3%) of all games in the database, and there's not really much of an interesting difference between the overall usage of category B, D, or E openings. However the difference for openings in the A and C categories is very interesting. Unlike in the overall dataset, C openings never overtake A openings (exect for at the very end, but with a sample size of <2000 games, I'm not counting that). 
+UltraBullet games represent about 24 million (1.3%) of all games in the database, and there's not really much of an interesting difference between the overall usage of category B, D, or E openings. However the difference for openings in the A and C categories is very interesting. Unlike in the overall dataset, C openings never overtake A openings (except for at the very end, but with a sample size of <2000 games, I'm not counting that). 
 
 My leading theory is that in the overall dataset, the progression of A and C show the learning curve of new players. My assumption is that UltraBullet players (save for the few that just want to give it a shot) are not new to chess. I'm at best okay when playing rapid, but when I tried playing the computer at mere Bullet times, I barely stood a chance. So even players who are new to UltraBullet have gone through the learning phase seen in the full dataset, resulting in category A openings dominating Ultrabullet.
 
@@ -110,7 +110,7 @@ Again, classical games (2.3%) don't differ too much from the overall dataset, wi
 ## Correspondence
 <svg id="chart-correspondence"></svg>
 
-While you can *sort* *of* see similar patterns in this dataset, it's pretty obvious that the relatively small sample size makes this data not so helpful. One interesting thing here though is is the distribution of the game counts - over a third of all correspondence games are in the 1400-1500 rating range, compared to only 10% in the overall dataset. Without much evidence, since Lichess doesn't specify provisional ratings in the PGN data, my hypothesis is that players tend to play correspondence games once or twice before moving on, and since provisional ratings start at 1500, most games for this time control will be in that ballpark.
+While you can *sort* *of* see similar patterns in this dataset, it's pretty obvious that the relatively small sample size makes this data not so helpful. One interesting thing here though is the distribution of the game counts - over a third of all correspondence games are in the 1400-1500 rating range, compared to only 10% in the overall dataset. Without much evidence, since Lichess doesn't specify provisional ratings in the PGN data, my hypothesis is that players tend to play correspondence games once or twice before moving on, and since provisional ratings start at 1500, most games for this time control will be in that ballpark.
 
 Going forward I'll probably exclude correspondence games from time-control based analysis. It just doesn't seem to add much.
 
