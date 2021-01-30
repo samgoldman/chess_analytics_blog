@@ -77,6 +77,8 @@ Some points of interest:
 * Categories B and D are relatively steady, although B does gain some share progressing through the lower ratings
 * Category E openings are the least common overall, only gaining a noticeable number of games around 1200 and peaking with about 6% of games in the 2300-2400 rating range
 
+By the way, you can hover over the chart to see the details for each datapoint!
+
 ## UltraBullet
 <svg id="chart-ultrabullet"></svg>
 
