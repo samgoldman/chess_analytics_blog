@@ -1,7 +1,7 @@
 ---
 title: "Analysis of ECO Category Usage by Player Rating and Time Control"
 layout: d3_post
-data: 2021-01-31 00:00
+date: 2021-01-30 00:00
 hidden: false
 published: true
 headerImage: true
